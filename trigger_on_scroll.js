@@ -58,7 +58,7 @@ var triggerOnScroll = ($this, scrollObj, page) =>{
             }
             if(value.indexOf("scroll-delay:")>-1){
                 let duration = parseFloat(value.slice(13,value.length));
-                let dur = 'top ' + duration + 'ms linear, left ' + duration + 'ms linear';
+                let dur = 'top ' + duration + 'ms ease, left ' + duration + 'ms ease';
                 obj.style.setProperty("transition", dur);
             }
         })
