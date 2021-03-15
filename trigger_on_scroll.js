@@ -92,16 +92,19 @@ var triggerOnScroll = ($this, scrollObj, page) =>{
 
         //scroll position is between Ceros anchors
         if($this.scrollTop >= minScroll && $this.scrollTop <= maxScroll){
+            console.log("between");
             obj.style.setProperty('left',(objX+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(differencePos*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
         else if($this.scrollTop < minScroll){
+            console.log("above");
             obj.style.setProperty('left',objX+'px');
             obj.style.setProperty('top',objY+'px');
         }
         //scroll position is below second Ceros anchor
         else{
+            console.log("below");
             obj.style.setProperty('left',(objX+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(scrollRange*scrollY))+'px');
         }
