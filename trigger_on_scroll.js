@@ -26,6 +26,7 @@ var pageWidth = 1280;
                             return $object;
                         }
                     });
+                    console.log(scrollObjs);
                     pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjs,pageContainer)});
                 }
             })
