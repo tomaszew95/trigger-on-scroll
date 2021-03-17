@@ -20,6 +20,8 @@ var pageWidth = 1280;
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
+                    console.log(scrollObjects);
+                    console.log(scrollObjects.toArray());
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
                     var scrollObjs = scrollObjects.filter(($object) =>{
                         if(pageContainer.contains($object)){
