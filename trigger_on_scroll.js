@@ -24,6 +24,7 @@ var pageWidth = 1280;
                     console.log(scrollObjects.toArray());
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
                     var scrollObjs = scrollObjects.filter(($object) =>{
+                        console.log('works');
                         if(pageContainer.contains($object)){
                             return $object;
                         }
