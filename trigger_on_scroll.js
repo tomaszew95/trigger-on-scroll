@@ -16,12 +16,17 @@ var pageWidth = 1280;
             .done(function (experience) {
                 window.myExperience = experience;
                 pageWidth = experience.getCurrentPage().getWidth();
+                let scrollObjects = experience.findLayersByTag("scroll-effect").layers;
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
-                    var scrollObjects = experience.findLayersByTag("scroll-effect").layers;
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
-                    pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjects,pageContainer)});
+                    var scrollObjs = scrollObjects.filter(($object) =>{
+                        if(pageContainer.contains($object)){
+                            return $object;
+                        }
+                    });
+                    pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjs,pageContainer)});
                 }
             })
     });
