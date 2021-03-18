@@ -31,7 +31,8 @@ var pageWidth = 1280;
                     console.log(pageScroll[0]);
                     let anchors = $(pageScroll).find(".scranchor").toArray();
                     anchors.forEach(anchor => {
-                        console.log($(anchor).parent());
+                        console.log($(anchor).parent(0));
+                        console.log($(anchor).parent().get(0));
                         console.log($(anchor).parent().style.top);
                         let anchorParent = $(anchor).parent().style.top;
                         let anchorTopPosition = anchor.style.top;
