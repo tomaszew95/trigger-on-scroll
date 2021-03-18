@@ -20,7 +20,6 @@ var pageWidth = 1280;
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
-                    console.log(scrollObjects);
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
                     var scrollObjs = scrollObjects.filter(($object) =>{
                         let $obj = document.getElementById($object.id);
@@ -28,7 +27,7 @@ var pageWidth = 1280;
                             return $object;
                         }
                     });
-                    let pageScroll = $(page).children().first();
+                    let pageScroll = $(pageContainer).children().first();
                     console.log(pageScroll[0]);
                     let anchors = $(pageScroll).find(".scranchor").toArray();
                     anchors.forEach(anchor => {
@@ -38,12 +37,12 @@ var pageWidth = 1280;
                         anchor.style.top = anchorTopPosition;
                         pageScroll[0].append(anchor);
                     });
-                    pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjs,pageContainer)});
+                    pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjs)});
                 }
             })
     });
 })();
-var triggerOnScroll = ($this, scrollObj, page) =>{
+var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let tags = scrollObj[i].getTags();
         let obj = document.getElementById(scrollObj[i].id);
