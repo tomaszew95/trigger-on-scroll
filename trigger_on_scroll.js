@@ -24,23 +24,26 @@ var pageWidth = 1280;
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
                     var scrollObjs = scrollObjects.filter(($object) =>{
                         let $obj = document.getElementById($object.id);
-                        console.log('works');
                         if(pageContainer.contains($obj)){
                             return $object;
                         }
                     });
-                    console.log(scrollObjs);
+                    let pageScroll = $(page).children().first();
+                    console.log(pageScroll[0]);
+                    let anchors = $(pageScroll).find(".scranchor").toArray();
+                    anchors.forEach(anchor => {
+                        let anchorParent = $(anchor).parent().style.top;
+                        let anchorTopPosition = anchor.style.top;
+                        anchorTopPosition += anchorParent;
+                        anchor.style.top = anchorTopPosition;
+                        pageScroll[0].append(anchor);
+                    });
                     pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjs,pageContainer)});
                 }
             })
     });
 })();
 var triggerOnScroll = ($this, scrollObj, page) =>{
-    let pageScroll = $(page).children().first();
-    console.log(pageScroll[0]);
-    let anchors = $(pageScroll).find(".scranchor").toArray();
-    anchors.forEach(anchor => pageScroll[0].append(anchor));
-
     for(let i = 0;i<scrollObj.length;i++){
         let tags = scrollObj[i].getTags();
         let obj = document.getElementById(scrollObj[i].id);
