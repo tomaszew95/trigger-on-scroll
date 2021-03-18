@@ -101,7 +101,6 @@ var triggerOnScroll = ($this, scrollObj) =>{
             }
         }
 
-        //dynamic changes
         let scrollPosition = $this.scrollTop;
         let differencePos = scrollPosition-minScroll;
 
