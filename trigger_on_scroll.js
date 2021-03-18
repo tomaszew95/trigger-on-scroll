@@ -37,9 +37,9 @@ var pageWidth = 1280;
 })();
 var triggerOnScroll = ($this, scrollObj, page) =>{
     let pageScroll = $(page).children().first();
-    console.log(pageScroll)
+    console.log(pageScroll[0]);
     let anchors = $(pageScroll).find(".scranchor").toArray();
-    anchors.forEach(anchor => pageScroll.append(anchor));
+    anchors.forEach(anchor => pageScroll[0].append(anchor));
 
     for(let i = 0;i<scrollObj.length;i++){
         let tags = scrollObj[i].getTags();
