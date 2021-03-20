@@ -50,7 +50,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let tags = scrollObj[i].getTags();
         let obj = document.getElementById(scrollObj[i].id);
-        console.log($this);
+        console.log(obj);
         console.log('works1');
         const objX = scrollObj[i].getX();
         const objY = scrollObj[i].getY();
@@ -109,18 +109,20 @@ var triggerOnScroll = ($this, scrollObj) =>{
         let differencePos = scrollPosition-minScroll;
 
         //scroll position is between Ceros anchors
-        if($this.scrollTop >= minScroll && $this.scrollTop <= maxScroll){
-            console.log('works4');
+        if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
+            console.log('works4a');
             obj.style.setProperty('left',(objX+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(differencePos*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
-        else if($this.scrollTop < minScroll){
+        else if(scrollPosition < minScroll){
+            console.log('works4b');
             obj.style.setProperty('left',objX+'px');
             obj.style.setProperty('top',objY+'px');
         }
         //scroll position is below second Ceros anchor
         else{
+            console.log('works4c');
             obj.style.setProperty('left',(objX+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(scrollRange*scrollY))+'px');
         }
