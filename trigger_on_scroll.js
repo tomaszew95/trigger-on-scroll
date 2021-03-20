@@ -51,7 +51,8 @@ var triggerOnScroll = ($this, scrollObj) =>{
         let tags = scrollObj[i].getTags();
         let objX = scrollObj[i].getX();
         let objY = scrollObj[i].getY();
-        if(objX == undefined || objY == undefined){
+        console.log(scrollObj[i]);
+        if((objX == undefined || objY == undefined)){
             objX = parseFloat(obj.style.left);
             objY = parseFloat(obj.style.top);
         }
@@ -109,7 +110,6 @@ var triggerOnScroll = ($this, scrollObj) =>{
 
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
-            console.log(objX, objY);
             obj.style.setProperty('left',(objX+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(differencePos*scrollY))+'px');
         }
