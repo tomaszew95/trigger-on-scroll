@@ -32,6 +32,10 @@ var objX = [], objY = [];
 
                     objX.length = scrollObjs.length;
                     objY.length = scrollObjs.length;
+                    for(let x=0; x<scrollObjs.length;x++){
+                        objX[x] = 0;
+                        objY[y] = 0;
+                    }
                     console.log(objX, objY);
 
                     let pageScroll = $(pageContainer).children().first();
