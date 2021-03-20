@@ -58,9 +58,10 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let obj = document.getElementById(scrollObj[i].id);
         let tags = scrollObj[i].getTags();
-        objX[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[0];
-        objY[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[1];
-        console.log(definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[1]);
+        objX[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]).values(0);
+        objY[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]).values(1);
+        console.log(definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]));
+        console.log(definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]).values(0));
         console.log(scrollObj[i],objX[i],objY[i]);
         let direction;
         let directions = [];
