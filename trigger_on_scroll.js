@@ -30,8 +30,8 @@ var objX = [], objY = [];
                         }
                     });
 
-                    objX = [scrollObjs.length-1];
-                    objY = [scrollObjs.length-1];
+                    objX.length = scrollObjs.length;
+                    objY.length = scrollObjs.length;
                     console.log(objX, objY);
 
                     let pageScroll = $(pageContainer).children().first();
@@ -55,18 +55,8 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let obj = document.getElementById(scrollObj[i].id);
         let tags = scrollObj[i].getTags();
+        definingDefaultObjectPosition(scrollObj[i]);
         console.log(scrollObj[i],objX[i],objY[i]);
-        if(scrollObj[i].isGroup()){
-            if(objX[i] == parseFloat(obj.style.left) || objY[i] == parseFloat(obj.style.top)){
-                continue;
-            }
-            objX[i] = parseFloat(obj.style.left);
-            objY[i] = parseFloat(obj.style.top);
-        }
-        else{
-            objX[i] = scrollObj[i].getX();
-            objY[i] = scrollObj[i].getY();
-        }
         let direction;
         let directions = [];
         let firstAnchor = 0;
@@ -134,5 +124,18 @@ var triggerOnScroll = ($this, scrollObj) =>{
             obj.style.setProperty('left',(objX[i]+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY[i]+(scrollRange*scrollY))+'px');
         }
+    }
+}
+var definingDefaultObjectPosition = (scrollObjI) =>{
+    if(scrollObjI.isGroup()){
+        if(objX[i] == parseFloat(obj.style.left) || objY[i] == parseFloat(obj.style.top)){
+            break;
+        }
+        objX[i] = parseFloat(obj.style.left);
+        objY[i] = parseFloat(obj.style.top);
+    }
+    else{
+        objX[i] = scrollObj[i].getX();
+        objY[i] = scrollObj[i].getY();
     }
 }
