@@ -51,6 +51,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
         let tags = scrollObj[i].getTags();
         let obj = document.getElementById(scrollObj[i].id);
         console.log(obj);
+        console.log('works1');
         const objX = scrollObj[i].getX();
         const objY = scrollObj[i].getY();
         let direction;
@@ -80,7 +81,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
                 obj.style.setProperty("transition", dur);
             }
         })
-
+        console.log('works2');
         let minScroll = parseInt(anchors[firstAnchor].style.top, 10);
         let maxScroll = parseInt(anchors[lastAnchor].style.top, 10);
         let scrollRange = maxScroll-minScroll;
@@ -103,12 +104,13 @@ var triggerOnScroll = ($this, scrollObj) =>{
                     break;
             }
         }
-
+        console.log('works3');
         let scrollPosition = $this.scrollTop;
         let differencePos = scrollPosition-minScroll;
 
         //scroll position is between Ceros anchors
         if($this.scrollTop >= minScroll && $this.scrollTop <= maxScroll){
+            console.log('works4');
             obj.style.setProperty('left',(objX+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(differencePos*scrollY))+'px');
         }
