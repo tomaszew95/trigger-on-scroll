@@ -49,12 +49,18 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let obj = document.getElementById(scrollObj[i].id);
         let tags = scrollObj[i].getTags();
-        let objX = scrollObj[i].getX();
-        let objY = scrollObj[i].getY();
-        console.log(scrollObj[i]);
-        if((objX == undefined || objY == undefined)){
+        let objX, objY;
+        console.log(scrollObj[i],objX, objY);
+        if(scrollObj[i].isGroup()){
+            if(objX == parseFloat(obj.style.left) || objY == parseFloat(obj.style.top)){
+                continue;
+            }
             objX = parseFloat(obj.style.left);
             objY = parseFloat(obj.style.top);
+        }
+        else{
+            objX = scrollObj[i].getX();
+            objY = scrollObj[i].getY();
         }
         let direction;
         let directions = [];
