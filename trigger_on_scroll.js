@@ -28,11 +28,9 @@ var pageWidth = 1280;
                         }
                     });
                     let pageScroll = $(pageContainer).children().first();
-                    console.log(pageScroll);
-                    console.log(pageScroll[0]);
                     let anchors = $(pageScroll).find(".scranchor").toArray();
                     anchors.forEach(anchor => {
-                        if(pageScroll.get(0).contains(anchor) ==false){
+                        if(pageScroll[0].contains(anchor) ==false){
                             console.log($(anchor).parent().get(0));
                             let anchorParent = parseFloat($(anchor).parent().get(0).style.top);
                             let anchorTopPosition = parseFloat(anchor.style.top);
