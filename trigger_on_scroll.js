@@ -32,7 +32,6 @@ var objX = [], objY = [];
 
                     objX.length = scrollObjs.length;
                     objY.length = scrollObjs.length;
-                    console.log("works00");
                     definingDefaultObjectPosition();
 
                     let pageScroll = $(pageContainer).children().first();
@@ -110,7 +109,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
 
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
-            obj.style.setProperty('left',(objX[i]+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('left',(objX[i]+(differencePos*(slideHeight/pageWidth)*scrollX))+'px');
             obj.style.setProperty('top',(objY[i]+(differencePos*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
@@ -120,13 +119,12 @@ var triggerOnScroll = ($this, scrollObj) =>{
         }
         //scroll position is below second Ceros anchor
         else{
-            obj.style.setProperty('left',(objX[i]+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('left',(objX[i]+(scrollRange*(slideHeight/pageWidth)*scrollX))+'px');
             obj.style.setProperty('top',(objY[i]+(scrollRange*scrollY))+'px');
         }
     }
 }
 var definingDefaultObjectPosition = () =>{
-    console.log("works01");
     for(let x=0; x<scrollObjs.length;x++){
         let obj = document.getElementById(scrollObjs[x].id);
         if(scrollObjs[x].isGroup()){
