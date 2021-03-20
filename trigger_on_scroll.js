@@ -18,6 +18,7 @@ var anchors;
                 window.myExperience = experience;
                 pageWidth = experience.getCurrentPage().getWidth();
                 let scrollObjects = experience.findLayersByTag("scroll-effect").layers;
+                console.log(scrollObjects);
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
@@ -32,12 +33,10 @@ var anchors;
                     anchors = $(pageScroll).find(".scranchor").toArray();
                     for(let y=0; y<anchors.length;y++){
                         if(pageScroll[0] != anchors[y].parentNode){
-                            console.log('works1');
                             let anchorParent = parseFloat($(anchors[y]).parent().get(0).style.top);
                             let anchorTopPosition = parseFloat(anchors[y].style.top);
                             anchorTopPosition += anchorParent;
                             anchors[y].style.top = (anchorTopPosition + 'px');
-                            console.log('works2');
                             $(anchors[y]).insertAfter(anchors[y-1]);
                         }
                     }
