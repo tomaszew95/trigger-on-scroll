@@ -48,10 +48,9 @@ var anchors;
 
 var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
-        let tags = scrollObj[i].getTags();
+        let tags = scrollObj[i].getTags();  //<----obj???
         let obj = document.getElementById(scrollObj[i].id);
-        console.log(obj);
-        console.log('works1');
+        console.log(scrollObj);
         const objX = scrollObj[i].getX();
         const objY = scrollObj[i].getY();
         let direction;
@@ -81,7 +80,6 @@ var triggerOnScroll = ($this, scrollObj) =>{
                 obj.style.setProperty("transition", dur);
             }
         })
-        console.log('works2');
         let minScroll = parseInt(anchors[firstAnchor].style.top, 10);
         let maxScroll = parseInt(anchors[lastAnchor].style.top, 10);
         let scrollRange = maxScroll-minScroll;
@@ -104,25 +102,23 @@ var triggerOnScroll = ($this, scrollObj) =>{
                     break;
             }
         }
-        console.log('works3');
         let scrollPosition = $this.scrollTop;
         let differencePos = scrollPosition-minScroll;
 
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
-            console.log('works4a');
+            console.log(objX, objY);
+            console.log(scrollX, scrollY);
             obj.style.setProperty('left',(objX+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(differencePos*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
         else if(scrollPosition < minScroll){
-            console.log('works4b');
             obj.style.setProperty('left',objX+'px');
             obj.style.setProperty('top',objY+'px');
         }
         //scroll position is below second Ceros anchor
         else{
-            console.log('works4c');
             obj.style.setProperty('left',(objX+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(scrollRange*scrollY))+'px');
         }
