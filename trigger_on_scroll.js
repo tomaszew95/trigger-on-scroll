@@ -32,10 +32,10 @@ var objX = [], objY = [];
 
                     objX.length = scrollObjs.length;
                     objY.length = scrollObjs.length;
-                    for(let x=0; x<scrollObjs.length;x++){
-                        objX[x] = 0;
-                        objY[x] = 0;
-                    }
+                    // for(let x=0; x<scrollObjs.length;x++){
+                    //     objX[x] = 0;
+                    //     objY[x] = 0;
+                    // }
                     console.log(objX, objY);
 
                     let pageScroll = $(pageContainer).children().first();
@@ -59,7 +59,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let obj = document.getElementById(scrollObj[i].id);
         let tags = scrollObj[i].getTags();
-        definingDefaultObjectPosition(scrollObj[i]);
+        definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]);
         console.log(scrollObj[i],objX[i],objY[i]);
         let direction;
         let directions = [];
@@ -130,16 +130,16 @@ var triggerOnScroll = ($this, scrollObj) =>{
         }
     }
 }
-var definingDefaultObjectPosition = (scrollObjI) =>{
+var definingDefaultObjectPosition = (scrollObjI, objXI, objYI) =>{
     if(scrollObjI.isGroup()){
-        if(objX[i] == parseFloat(obj.style.left) || objY[i] == parseFloat(obj.style.top)){
+        if(objXI == parseFloat(obj.style.left) || objYI == parseFloat(obj.style.top)){
             return;
         }
-        objX[i] = parseFloat(obj.style.left);
-        objY[i] = parseFloat(obj.style.top);
+        objXI = parseFloat(obj.style.left);
+        objYI = parseFloat(obj.style.top);
     }
     else{
-        objX[i] = scrollObj[i].getX();
-        objY[i] = scrollObj[i].getY();
+        objXI = scrollObjI.getX();
+        objYI = scrollObjI.getY();
     }
 }
