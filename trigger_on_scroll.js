@@ -58,11 +58,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let obj = document.getElementById(scrollObj[i].id);
         let tags = scrollObj[i].getTags();
-        objX[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]).values(0);
-        objY[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]).values(1);
-        console.log(definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]));
-        console.log(definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]).values(0));
-        console.log(scrollObj[i],objX[i],objY[i]);
+        let objPosition = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]);
         let direction;
         let directions = [];
         let firstAnchor = 0;
@@ -117,18 +113,18 @@ var triggerOnScroll = ($this, scrollObj) =>{
 
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
-            obj.style.setProperty('left',(objX[i]+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
-            obj.style.setProperty('top',(objY[i]+(differencePos*scrollY))+'px');
+            obj.style.setProperty('left',(objPosition[0]+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('top',(objPosition[1]+(differencePos*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
         else if(scrollPosition < minScroll){
-            obj.style.setProperty('left',objX[i]+'px');
-            obj.style.setProperty('top',objY[i]+'px');
+            obj.style.setProperty('left',objPosition[0]+'px');
+            obj.style.setProperty('top',objPosition[1]+'px');
         }
         //scroll position is below second Ceros anchor
         else{
-            obj.style.setProperty('left',(objX[i]+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
-            obj.style.setProperty('top',(objY[i]+(scrollRange*scrollY))+'px');
+            obj.style.setProperty('left',(objPosition[0]+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('top',(objPosition[1]+(scrollRange*scrollY))+'px');
         }
     }
 }
