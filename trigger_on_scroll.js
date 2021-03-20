@@ -2,6 +2,7 @@ var scrollPlugin = document.getElementById("ceros-trigger-on-scroll-plugin");
 var slideHeight = scrollPlugin.getAttribute("slide-height");
 var pageWidth = 1280;
 var anchors;
+var objX = [], objY = [];
 (function(){
     'use strict';
     require.config({
@@ -28,6 +29,11 @@ var anchors;
                             return $object;
                         }
                     });
+
+                    objX = [scrollObjs.length-1];
+                    objY = [scrollObjs.length-1];
+                    console.log(objX, objY);
+
                     let pageScroll = $(pageContainer).children().first();
                     anchors = $(pageScroll).find(".scranchor").toArray();
                     for(let y=0; y<anchors.length;y++){
@@ -49,18 +55,17 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let obj = document.getElementById(scrollObj[i].id);
         let tags = scrollObj[i].getTags();
-        let objX, objY;
-        console.log(scrollObj[i],objX, objY);
+        console.log(scrollObj[i],objX[i],objY[i]);
         if(scrollObj[i].isGroup()){
-            if(objX == parseFloat(obj.style.left) || objY == parseFloat(obj.style.top)){
+            if(objX[i] == parseFloat(obj.style.left) || objY[i] == parseFloat(obj.style.top)){
                 continue;
             }
-            objX = parseFloat(obj.style.left);
-            objY = parseFloat(obj.style.top);
+            objX[i] = parseFloat(obj.style.left);
+            objY[i] = parseFloat(obj.style.top);
         }
         else{
-            objX = scrollObj[i].getX();
-            objY = scrollObj[i].getY();
+            objX[i] = scrollObj[i].getX();
+            objY[i] = scrollObj[i].getY();
         }
         let direction;
         let directions = [];
@@ -116,18 +121,18 @@ var triggerOnScroll = ($this, scrollObj) =>{
 
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
-            obj.style.setProperty('left',(objX+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
-            obj.style.setProperty('top',(objY+(differencePos*scrollY))+'px');
+            obj.style.setProperty('left',(objX[i]+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('top',(objY[i]+(differencePos*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
         else if(scrollPosition < minScroll){
-            obj.style.setProperty('left',objX+'px');
-            obj.style.setProperty('top',objY+'px');
+            obj.style.setProperty('left',objX[i]+'px');
+            obj.style.setProperty('top',objY[i]+'px');
         }
         //scroll position is below second Ceros anchor
         else{
-            obj.style.setProperty('left',(objX+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
-            obj.style.setProperty('top',(objY+(scrollRange*scrollY))+'px');
+            obj.style.setProperty('left',(objX[i]+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('top',(objY[i]+(scrollRange*scrollY))+'px');
         }
     }
 }
