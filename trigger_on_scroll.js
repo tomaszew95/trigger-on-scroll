@@ -134,8 +134,10 @@ var definingDefaultObjectPosition = (scrollObjI, objXI, objYI) =>{
         if(objXI == parseFloat(obj.style.left) || objYI == parseFloat(obj.style.top)){
             return [objXI, objYI];
         }
-        objXI = parseFloat(obj.style.left);
-        objYI = parseFloat(obj.style.top);
+        const objLeft = parseFloat(obj.style.left);
+        const objTop = parseFloat(obj.style.top);
+        objXI = objLeft;
+        objYI = objTop;
     }
     else{
         objXI = scrollObjI.getX();
