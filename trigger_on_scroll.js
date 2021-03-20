@@ -50,7 +50,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let tags = scrollObj[i].getTags();
         let obj = document.getElementById(scrollObj[i].id);
-        console.log(obj);
+        console.log($this);
         console.log('works1');
         const objX = scrollObj[i].getX();
         const objY = scrollObj[i].getY();
