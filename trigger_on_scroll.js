@@ -36,7 +36,6 @@ var objX = [], objY = [];
                     //     objX[x] = 0;
                     //     objY[x] = 0;
                     // }
-                    console.log(objX, objY);
 
                     let pageScroll = $(pageContainer).children().first();
                     anchors = $(pageScroll).find(".scranchor").toArray();
@@ -61,6 +60,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
         let tags = scrollObj[i].getTags();
         objX[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[0];
         objY[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[1];
+        console.log(definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[1]);
         console.log(scrollObj[i],objX[i],objY[i]);
         let direction;
         let directions = [];
@@ -134,7 +134,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
 var definingDefaultObjectPosition = (scrollObjI, objXI, objYI) =>{
     let obj = document.getElementById(scrollObjI.id);
     if(scrollObjI.isGroup()){
-        if(objXI == parseFloat(obj.style.left) || objYI == parseFloat(obj.style.top)){
+        if((objXI != undefined || objYI != undefined) && (objXI != parseFloat(obj.style.left) || objYI != parseFloat(obj.style.top))){
             return [objXI, objYI];
         }
         objXI = parseFloat(obj.style.left);
