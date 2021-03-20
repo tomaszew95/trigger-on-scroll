@@ -32,7 +32,8 @@ var objX = [], objY = [];
 
                     objX.length = scrollObjs.length;
                     objY.length = scrollObjs.length;
-                    definingDefaultObjectPosition;
+                    console.log("works00");
+                    definingDefaultObjectPosition();
 
                     let pageScroll = $(pageContainer).children().first();
                     anchors = $(pageScroll).find(".scranchor").toArray();
@@ -125,6 +126,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
     }
 }
 var definingDefaultObjectPosition = () =>{
+    console.log("works01");
     for(let x=0; x<scrollObjs.length;x++){
         let obj = document.getElementById(scrollObjs[x].id);
         if(scrollObjs[x].isGroup()){
