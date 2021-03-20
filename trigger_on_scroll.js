@@ -34,7 +34,7 @@ var objX = [], objY = [];
                     objY.length = scrollObjs.length;
                     for(let x=0; x<scrollObjs.length;x++){
                         objX[x] = 0;
-                        objY[y] = 0;
+                        objY[x] = 0;
                     }
                     console.log(objX, objY);
 
