@@ -59,7 +59,8 @@ var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         let obj = document.getElementById(scrollObj[i].id);
         let tags = scrollObj[i].getTags();
-        definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i]);
+        objX[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[0];
+        objY[i] = definingDefaultObjectPosition(scrollObj[i], objX[i], objY[i])[1];
         console.log(scrollObj[i],objX[i],objY[i]);
         let direction;
         let directions = [];
@@ -133,8 +134,8 @@ var triggerOnScroll = ($this, scrollObj) =>{
 var definingDefaultObjectPosition = (scrollObjI, objXI, objYI) =>{
     let obj = document.getElementById(scrollObjI.id);
     if(scrollObjI.isGroup()){
-        if(objXI == parseFloat(obj.style.left) || objYI == parseFloat(obj.style.top)){
-            return;
+        if(objXI != parseFloat(obj.style.left) || objYI != parseFloat(obj.style.top)){
+            return [objXI, objYI];
         }
         objXI = parseFloat(obj.style.left);
         objYI = parseFloat(obj.style.top);
@@ -143,4 +144,5 @@ var definingDefaultObjectPosition = (scrollObjI, objXI, objYI) =>{
         objXI = scrollObjI.getX();
         objYI = scrollObjI.getY();
     }
+    return [objXI, objYI];
 }
