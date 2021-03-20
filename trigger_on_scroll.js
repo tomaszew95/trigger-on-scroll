@@ -1,7 +1,7 @@
 var scrollPlugin = document.getElementById("ceros-trigger-on-scroll-plugin");
 var slideHeight = scrollPlugin.getAttribute("slide-height");
 var pageWidth = 1280;
-var anchors;
+var anchors, scrollObjs;
 var objX = [], objY = [];
 (function(){
     'use strict';
@@ -23,7 +23,7 @@ var objX = [], objY = [];
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
-                    var scrollObjs = scrollObjects.filter(($object) =>{
+                    scrollObjs = scrollObjects.filter(($object) =>{
                         let $obj = document.getElementById($object.id);
                         if(pageContainer.contains($obj)){
                             return $object;
