@@ -32,10 +32,10 @@ var objX = [], objY = [];
 
                     objX.length = scrollObjs.length;
                     objY.length = scrollObjs.length;
-                    // for(let x=0; x<scrollObjs.length;x++){
-                    //     objX[x] = 0;
-                    //     objY[x] = 0;
-                    // }
+                    for(let x=0; x<scrollObjs.length;x++){
+                        objX[x] = undefined;
+                        objY[x] = undefined;
+                    }
 
                     let pageScroll = $(pageContainer).children().first();
                     anchors = $(pageScroll).find(".scranchor").toArray();
@@ -131,7 +131,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
 var definingDefaultObjectPosition = (scrollObjI, objXI, objYI) =>{
     let obj = document.getElementById(scrollObjI.id);
     if(scrollObjI.isGroup()){
-        if((objXI != undefined || objYI != undefined) && (objXI != parseFloat(obj.style.left) || objYI != parseFloat(obj.style.top))){
+        if(objXI != undefined || objYI != undefined){
             return [objXI, objYI];
         }
         objXI = parseFloat(obj.style.left);
