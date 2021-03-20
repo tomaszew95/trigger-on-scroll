@@ -30,18 +30,17 @@ var anchors;
                     });
                     let pageScroll = $(pageContainer).children().first();
                     anchors = $(pageScroll).find(".scranchor").toArray();
-                    anchors.forEach(anchor => {
-                        console.log(anchor.parentNode);
-                        if(pageScroll[0] != anchor.parentNode){
-                            let anchorParent = parseFloat($(anchor).parent().get(0).style.top);
-                            let anchorTopPosition = parseFloat(anchor.style.top);
-                            console.log(anchorTopPosition);
+                    for(let y=0; y<anchors.length;y++){
+                        if(pageScroll[0] != anchors[y].parentNode){
+                            console.log('works1');
+                            let anchorParent = parseFloat($(anchors[y]).parent().get(0).style.top);
+                            let anchorTopPosition = parseFloat(anchors[y].style.top);
                             anchorTopPosition += anchorParent;
-                            console.log(anchorTopPosition);
-                            anchor.style.top = (anchorTopPosition + 'px');
-                            pageScroll[0].append(anchor);
+                            anchors[y].style.top = (anchorTopPosition + 'px');
+                            console.log('works2');
+                            $(anchors[y]).insertAfter(anchors[y-1]);
                         }
-                    });
+                    }
                     pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjs)});
                 }
             })
