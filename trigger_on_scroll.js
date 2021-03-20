@@ -1,6 +1,7 @@
 var scrollPlugin = document.getElementById("ceros-trigger-on-scroll-plugin");
 var slideHeight = scrollPlugin.getAttribute("slide-height");
 var pageWidth = 1280;
+var anchors;
 (function(){
     'use strict';
     require.config({
@@ -28,8 +29,9 @@ var pageWidth = 1280;
                         }
                     });
                     let pageScroll = $(pageContainer).children().first();
-                    let anchors = $(pageScroll).find(".scranchor").toArray();
+                    anchors = $(pageScroll).find(".scranchor").toArray();
                     anchors.forEach(anchor => {
+                        console.log(pageScroll[0].contains(anchor));
                         if(pageScroll[0].contains(anchor) ==false){
                             console.log($(anchor).parent().get(0));
                             let anchorParent = parseFloat($(anchor).parent().get(0).style.top);
