@@ -31,8 +31,8 @@ var anchors;
                     let pageScroll = $(pageContainer).children().first();
                     anchors = $(pageScroll).find(".scranchor").toArray();
                     anchors.forEach(anchor => {
-                        console.log(pageScroll[0].contains(anchor));
-                        if(pageScroll[0].contains(anchor) ==false){
+                        console.log(anchor.parentNode);
+                        if(pageScroll[0]== anchor.parentNode){
                             console.log($(anchor).parent().get(0));
                             let anchorParent = parseFloat($(anchor).parent().get(0).style.top);
                             let anchorTopPosition = parseFloat(anchor.style.top);
