@@ -18,7 +18,6 @@ var anchors;
                 window.myExperience = experience;
                 pageWidth = experience.getCurrentPage().getWidth();
                 let scrollObjects = experience.findLayersByTag("scroll-effect").layers;
-                console.log(scrollObjects);
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
@@ -48,11 +47,14 @@ var anchors;
 
 var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
-        let tags = scrollObj[i].getTags();  //<----obj???
         let obj = document.getElementById(scrollObj[i].id);
-        console.log(scrollObj);
-        const objX = scrollObj[i].getX();
-        const objY = scrollObj[i].getY();
+        let tags = scrollObj[i].getTags();
+        let objX = scrollObj[i].getX();
+        let objY = scrollObj[i].getY();
+        if(objX == undefined || objY == undefined){
+            objX = parseFloat(obj.style.left);
+            objY = parseFloat(obj.style.top);
+        }
         let direction;
         let directions = [];
         let firstAnchor = 0;
@@ -108,7 +110,6 @@ var triggerOnScroll = ($this, scrollObj) =>{
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
             console.log(objX, objY);
-            console.log(scrollX, scrollY);
             obj.style.setProperty('left',(objX+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
             obj.style.setProperty('top',(objY+(differencePos*scrollY))+'px');
         }
