@@ -129,7 +129,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
 var definingDefaultObjectPosition = (scrollObjI) =>{
     if(scrollObjI.isGroup()){
         if(objX[i] == parseFloat(obj.style.left) || objY[i] == parseFloat(obj.style.top)){
-            break;
+            return;
         }
         objX[i] = parseFloat(obj.style.left);
         objY[i] = parseFloat(obj.style.top);
