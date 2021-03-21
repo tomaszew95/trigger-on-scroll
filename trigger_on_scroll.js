@@ -1,8 +1,8 @@
 var scrollPlugin = document.getElementById("ceros-trigger-on-scroll-plugin");
 var slideHeight = scrollPlugin.getAttribute("slide-height");
 var pageWidth = 1280;
-var anchors, scrollObjs;
-var objX = [], objY = [];
+var anchors, currentPageScrollObjects;
+var objPosX = [], objPosY = [];
 (function(){
     'use strict';
     require.config({
@@ -18,34 +18,35 @@ var objX = [], objY = [];
             .done(function (experience) {
                 window.myExperience = experience;
                 pageWidth = experience.getCurrentPage().getWidth();
-                let scrollObjects = experience.findLayersByTag("scroll-effect").layers;
+                var scrollObjects = experience.findLayersByTag("scroll-effect").layers;
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
-                    scrollObjs = scrollObjects.filter(($object) =>{
+                    //making new array of scrollObjects that are on current page 
+                    currentPageScrollObjects = scrollObjects.filter(($object) =>{
                         let $obj = document.getElementById($object.id);
                         if(pageContainer.contains($obj)){
                             return $object;
                         }
                     });
-
-                    objX.length = scrollObjs.length;
-                    objY.length = scrollObjs.length;
+                    objPosX.length = currentPageScrollObjects.length;
+                    objPosY.length = currentPageScrollObjects.length;
                     definingDefaultObjectPosition();
 
-                    let pageScroll = $(pageContainer).children().first();
+                    var pageScroll = $(pageContainer).children().first();
                     anchors = $(pageScroll).find(".scranchor").toArray();
+                    //checking if anchor is inside a group, if yes take it away
                     for(let y=0; y<anchors.length;y++){
                         if(pageScroll[0] != anchors[y].parentNode){
-                            let anchorParent = parseFloat($(anchors[y]).parent().get(0).style.top);
-                            let anchorTopPosition = parseFloat(anchors[y].style.top);
-                            anchorTopPosition += anchorParent;
-                            anchors[y].style.top = (anchorTopPosition + 'px');
+                            let anchorParentTopPos = parseFloat($(anchors[y]).parent().get(0).style.top);
+                            let anchorTopPos = parseFloat(anchors[y].style.top);
+                            anchorTopPos += anchorParentTopPos;
+                            anchors[y].style.top = (anchorTopPos + 'px');
                             $(anchors[y]).insertAfter(anchors[y-1]);
                         }
                     }
-                    pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,scrollObjs)});
+                    pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,currentPageScrollObjects)});
                 }
             })
     });
@@ -53,16 +54,15 @@ var objX = [], objY = [];
 
 var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
-        let obj = document.getElementById(scrollObj[i].id);
-        let tags = scrollObj[i].getTags();
-        let direction;
-        let directions = [];
-        let firstAnchor = 0;
-        let lastAnchor = ((anchors.length)-1);
+        var obj = document.getElementById(scrollObj[i].id);
+        var tags = scrollObj[i].getTags();
+        var directions = [];
+        var firstAnchor = 0;
+        var lastAnchor = ((anchors.length)-1);
 
         _.forEach(tags, function(value, key){
             if(value.indexOf("move-direction:") > -1){
-                direction = value.slice(15,value.length);
+                var direction = value.slice(15,value.length);
                 if(direction.search("&")>-1){
                     directions = direction.split("&");
                 }
@@ -82,11 +82,11 @@ var triggerOnScroll = ($this, scrollObj) =>{
                 obj.style.setProperty("transition", dur);
             }
         })
-        let minScroll = parseInt(anchors[firstAnchor].style.top, 10);
-        let maxScroll = parseInt(anchors[lastAnchor].style.top, 10);
-        let scrollRange = maxScroll-minScroll;
-        let scrollX = 0;
-        let scrollY = 0;
+
+        var minScroll = parseInt(anchors[firstAnchor].style.top, 10);
+        var maxScroll = parseInt(anchors[lastAnchor].style.top, 10);
+        var scrollRange = maxScroll-minScroll;
+        var scrollX = 0, scrollY = 0;
 
         for(let y=0; y<directions.length;y++){
             switch(directions[y]){
@@ -104,36 +104,37 @@ var triggerOnScroll = ($this, scrollObj) =>{
                     break;
             }
         }
+
         let scrollPosition = $this.scrollTop;
         let differencePos = scrollPosition-minScroll;
 
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
-            obj.style.setProperty('left',(objX[i]+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
-            obj.style.setProperty('top',(objY[i]+(differencePos*scrollY))+'px');
+            obj.style.setProperty('left',(objPosX[i]+(differencePos*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('top',(objPosY[i]+(differencePos*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
         else if(scrollPosition < minScroll){
-            obj.style.setProperty('left',objX[i]+'px');
-            obj.style.setProperty('top',objY[i]+'px');
+            obj.style.setProperty('left',objPosX[i]+'px');
+            obj.style.setProperty('top',objPosY[i]+'px');
         }
         //scroll position is below second Ceros anchor
         else{
-            obj.style.setProperty('left',(objX[i]+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
-            obj.style.setProperty('top',(objY[i]+(scrollRange*scrollY))+'px');
+            obj.style.setProperty('left',(objPosX[i]+(scrollRange*(pageWidth/slideHeight)*scrollX))+'px');
+            obj.style.setProperty('top',(objPosY[i]+(scrollRange*scrollY))+'px');
         }
     }
 }
 var definingDefaultObjectPosition = () =>{
-    for(let x=0; x<scrollObjs.length;x++){
-        let obj = document.getElementById(scrollObjs[x].id);
-        if(scrollObjs[x].isGroup()){
-            objX[x] = parseFloat(obj.style.left);
-            objY[x] = parseFloat(obj.style.top);
+    for(let x=0; x<currentPageScrollObjects.length;x++){
+        let obj = document.getElementById(currentPageScrollObjects[x].id);
+        if(currentPageScrollObjects[x].isGroup()){
+            objPosX[x] = parseFloat(obj.style.left);
+            objPosY[x] = parseFloat(obj.style.top);
         }
         else{
-            objX[x] = scrollObjs[x].getX();
-            objY[x] = scrollObjs[x].getY();
+            objPosX[x] = currentPageScrollObjects[x].getX();
+            objPosY[x] = currentPageScrollObjects[x].getY();
         }
     }
 }
