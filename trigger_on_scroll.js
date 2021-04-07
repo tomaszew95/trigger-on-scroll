@@ -126,15 +126,19 @@ var triggerOnScroll = ($this, scrollObj) =>{
     }
 }
 var definingDefaultObjectPosition = () =>{
-    for(let x=0; x<currentPageScrollObjects.length;x++){
-        let obj = document.getElementById(currentPageScrollObjects[x].id);
-        if(currentPageScrollObjects[x].isGroup()){
-            objPosX[x] = parseFloat(obj.style.left);
-            objPosY[x] = parseFloat(obj.style.top);
+    for(let i=0; i<currentPageScrollObjects.length;i++){
+        let obj = document.getElementById(currentPageScrollObjects[i].id);
+        if(currentPageScrollObjects[i].isGroup()){
+            if(currentPageScrollObjects[i].x == undefined || currentPageScrollObjects[i].y == undefined){
+                currentPageScrollObjects[i].x = parseFloat(obj.style.left);
+                currentPageScrollObjects[i].y = parseFloat(obj.style.top);
+            }
+            objPosX[i] = currentPageScrollObjects[i].getX();
+            objPosY[i] = currentPageScrollObjects[i].getY();
         }
         else{
-            objPosX[x] = currentPageScrollObjects[x].getX();
-            objPosY[x] = currentPageScrollObjects[x].getY();
+            objPosX[i] = currentPageScrollObjects[i].getX();
+            objPosY[i] = currentPageScrollObjects[i].getY();
         }
     }
 }
