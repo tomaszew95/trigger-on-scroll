@@ -58,6 +58,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
         var firstAnchor = 0;
         var lastAnchor = ((anchors.length)-1);
         var effectMultiplier = parseFloat(scrollPlugin.getAttribute("effect-multiplier"));
+		console.log(effectMultiplier);
 
         _.forEach(tags, function(value, key){
             if(value.indexOf("move-direction:") > -1){
