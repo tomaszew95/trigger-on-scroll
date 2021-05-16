@@ -49,7 +49,6 @@ var objPosX = [], objPosY = [];
             })
     });
 })();
-
 var triggerOnScroll = ($this, scrollObj) =>{
     for(let i = 0;i<scrollObj.length;i++){
         var obj = document.getElementById(scrollObj[i].id);
@@ -104,7 +103,6 @@ var triggerOnScroll = ($this, scrollObj) =>{
 
         let scrollPosition = $this.scrollTop;
         let differencePos = scrollPosition-minScroll;
-
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
             obj.style.setProperty('left',(objPosX[i]+(differencePos*effectMultiplier*scrollX))+'px');
