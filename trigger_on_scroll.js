@@ -106,7 +106,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
         //scroll position is between Ceros anchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
             obj.style.setProperty('left',(objPosX[i]+(differencePos*effectMultiplier*scrollX))+'px');
-            obj.style.setProperty('top',(objPosY[i]+(differencePos*scrollY))+'px');
+            obj.style.setProperty('top',(objPosY[i]+(differencePos*effectMultiplier*scrollY))+'px');
         }
         //scroll position is above first Ceros anchor
         else if(scrollPosition < minScroll){
@@ -116,7 +116,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
         //scroll position is below second Ceros anchor
         else{
             obj.style.setProperty('left',(objPosX[i]+(scrollRange*effectMultiplier*scrollX))+'px');
-            obj.style.setProperty('top',(objPosY[i]+(scrollRange*scrollY))+'px');
+            obj.style.setProperty('top',(objPosY[i]+(scrollRange*effectMultiplier*scrollY))+'px');
         }
     }
 }
