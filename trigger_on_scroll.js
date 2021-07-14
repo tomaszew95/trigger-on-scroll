@@ -36,23 +36,25 @@ var objPosX = [], objPosY = [];
                     //checking if anchor is inside a group, if yes take it away
                     for(let y=0; y<scrollAnchors.length;y++){
                         let firstParent = $(scrollAnchors[y]).parent();
-                        let secondParent = firstParent.parent();
-                        let anchorParentTopPos = 0;
-                        if(pageScroll[0] != scrollAnchors[y].parentNode){
-                            var parentsFunction = () =>{
-                                let topPos = parseFloat(firstParent.get(0).style.top);
-                                anchorParentTopPos += topPos;
-                                if(secondParent.hasClass("page-scroll") == false){
-                                    firstParent = secondParent;
-                                    secondParent = firstParent.parent();
-                                    parentsFunction();
+                        if(firstParent.hasClass("page-scroll") == false){
+                            let secondParent = firstParent.parent();
+                            let anchorParentTopPos = 0;
+                            if(pageScroll[0] != scrollAnchors[y].parentNode){
+                                var parentsFunction = () =>{
+                                    let topPos = parseFloat(firstParent.get(0).style.top);
+                                    anchorParentTopPos += topPos;
+                                    if(secondParent.hasClass("page-scroll") == false){
+                                        firstParent = secondParent;
+                                        secondParent = firstParent.parent();
+                                        parentsFunction();
+                                    }
                                 }
+                                parentsFunction();
+                                let anchorTopPos = parseFloat(scrollAnchors[y].style.top);
+                                anchorTopPos += anchorParentTopPos;
+                                scrollAnchors[y].style.top = (anchorTopPos + 'px');
+                                $(scrollAnchors[y]).insertAfter(scrollAnchors[y-1]);
                             }
-                            parentsFunction();
-                            let anchorTopPos = parseFloat(scrollAnchors[y].style.top);
-                            anchorTopPos += anchorParentTopPos;
-                            scrollAnchors[y].style.top = (anchorTopPos + 'px');
-                            $(scrollAnchors[y]).insertAfter(scrollAnchors[y-1]);
                         }
                     }
                     pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,currentPageScrollObjects)});
