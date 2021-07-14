@@ -1,5 +1,5 @@
 var scrollPlugin = document.getElementById("ceros-trigger-on-scroll-plugin");
-var anchors, currentPageScrollObjects;
+var scrollAnchors, currentPageScrollObjects;
 var objPosX = [], objPosY = [];
 (function(){
     'use strict';
@@ -32,15 +32,27 @@ var objPosX = [], objPosY = [];
                     definingDefaultObjectPosition();
 
                     var pageScroll = $(pageContainer).children().first();
-                    anchors = $(pageScroll).find(".scranchor").toArray();
+                    scrollAnchors = $(pageScroll).find(".scranchor").toArray();
                     //checking if anchor is inside a group, if yes take it away
-                    for(let y=0; y<anchors.length;y++){
-                        if(pageScroll[0] != anchors[y].parentNode){
-                            let anchorParentTopPos = parseFloat($(anchors[y]).parent().get(0).style.top);
-                            let anchorTopPos = parseFloat(anchors[y].style.top);
+                    for(let y=0; y<scrollAnchors.length;y++){
+                        let firstParent = $(scrollAnchors[y]).parent();
+                        let secondParent = firstParent.parent();
+                        let anchorParentTopPos = 0;
+                        if(pageScroll[0] != scrollAnchors[y].parentNode){
+                            var parentsFunction = () =>{
+                                let topPos = parseFloat(firstParent.get(0).style.top);
+                                anchorParentTopPos += topPos;
+                                if(secondParent.hasClass("page-scroll") == false){
+                                    firstParent = secondParent;
+                                    secondParent = firstParent.parent();
+                                    parentsFunction();
+                                }
+                            }
+                            parentsFunction();
+                            let anchorTopPos = parseFloat(scrollAnchors[y].style.top);
                             anchorTopPos += anchorParentTopPos;
-                            anchors[y].style.top = (anchorTopPos + 'px');
-                            $(anchors[y]).insertAfter(anchors[y-1]);
+                            scrollAnchors[y].style.top = (anchorTopPos + 'px');
+                            $(scrollAnchors[y]).insertAfter(scrollAnchors[y-1]);
                         }
                     }
                     pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,currentPageScrollObjects)});
@@ -55,7 +67,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
         var tags = scrollObj[i].getTags();
         var directions = [];
         var firstAnchor = 0;
-        var lastAnchor = ((anchors.length)-1);
+        var lastAnchor = ((scrollAnchors.length)-1);
         var effectMultiplier = parseFloat(scrollPlugin.getAttribute("effect-multiplier"));
 
         _.forEach(tags, function(value, key){
@@ -79,8 +91,8 @@ var triggerOnScroll = ($this, scrollObj) =>{
             }
         })
 
-        var minScroll = parseInt(anchors[firstAnchor].style.top, 10);
-        var maxScroll = parseInt(anchors[lastAnchor].style.top, 10);
+        var minScroll = parseInt(scrollAnchors[firstAnchor].style.top, 10);
+        var maxScroll = parseInt(scrollAnchors[lastAnchor].style.top, 10);
         var scrollRange = maxScroll-minScroll;
         var scrollX = 0, scrollY = 0;
 
@@ -103,7 +115,7 @@ var triggerOnScroll = ($this, scrollObj) =>{
 
         let scrollPosition = $this.scrollTop;
         let differencePos = scrollPosition-minScroll;
-        //scroll position is between Ceros anchors
+        //scroll position is between Ceros scrollAnchors
         if(scrollPosition >= minScroll && scrollPosition <= maxScroll){
             obj.style.setProperty('left',(objPosX[i]+(differencePos*effectMultiplier*scrollX))+'px');
             obj.style.setProperty('top',(objPosY[i]+(differencePos*effectMultiplier*scrollY))+'px');
