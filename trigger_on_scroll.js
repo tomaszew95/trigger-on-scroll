@@ -57,7 +57,7 @@ var objPosX = [], objPosY = [];
                             }
                         }
                     }
-                    pageContainer.addEventListener("scroll", function(){triggerOnScroll(this,currentPageScrollObjects)});
+                    pageContainer.addEventListener("scroll", function(){window.requestAnimationFrame(triggerOnScroll(this,currentPageScrollObjects))});
                     triggerOnScroll(pageContainer, currentPageScrollObjects);
                 }
             })
