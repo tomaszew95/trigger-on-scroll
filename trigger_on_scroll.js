@@ -57,8 +57,8 @@ var objPosX = [], objPosY = [];
                             }
                         }
                     }
-                    pageContainer.addEventListener("scroll", function(){window.requestAnimationFrame(triggerOnScroll(this,currentPageScrollObjects))});
-                    triggerOnScroll(pageContainer, currentPageScrollObjects);
+                    // pageContainer.addEventListener("scroll", function(){window.requestAnimationFrame(triggerOnScroll(this,currentPageScrollObjects))});
+                    window.requestAnimationFrame(triggerOnScroll(pageContainer, currentPageScrollObjects));
                 }
             })
     });
@@ -150,4 +150,5 @@ var definingDefaultObjectPosition = () =>{
             objPosY[i] = currentPageScrollObjects[i].getY();
         }
     }
+    window.requestAnimationFrame(triggerOnScroll(pageContainer, currentPageScrollObjects));
 }
