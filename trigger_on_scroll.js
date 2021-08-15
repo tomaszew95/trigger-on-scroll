@@ -37,9 +37,10 @@ var objPosX = [], objPosY = [];
                     var pageScroll = $(pageContainer).children().first();
                     console.log(pageScroll);
                     scrollAnchors = $(pageScroll).find(".scranchor").toArray();
+                    console.log(scrollAnchors);
                     var pageTopAnchor = document.getElementById('page-' + pageNr + '-top');
                     console.log(pageTopAnchor);
-                    (pageScroll).prepend(pageTopAnchor);
+                    (pageScroll[0]).prepend(pageTopAnchor);
                     //checking if anchor is inside a group, if yes take it away
                     for(let y=0; y<scrollAnchors.length;y++){
                         let firstParent = $(scrollAnchors[y]).parent();
@@ -47,7 +48,6 @@ var objPosX = [], objPosY = [];
                             let secondParent = firstParent.parent();
                             let anchorParentTopPos = 0;
                             if(pageScroll[0] != scrollAnchors[y].parentNode){
-                                console.log('works');
                                 var parentsFunction = () =>{
                                     let topPos = parseFloat(firstParent.get(0).style.top);
                                     anchorParentTopPos += topPos;
@@ -61,6 +61,7 @@ var objPosX = [], objPosY = [];
                                 let anchorTopPos = parseFloat(scrollAnchors[y].style.top);
                                 anchorTopPos += anchorParentTopPos;
                                 scrollAnchors[y].style.top = (anchorTopPos + 'px');
+                                console.log(scrollAnchors[y], 'works');
                                 $(scrollAnchors[y]).insertAfter(scrollAnchors[y-1]);
                             }
                         }
