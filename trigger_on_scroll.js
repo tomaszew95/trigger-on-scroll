@@ -37,9 +37,10 @@ var objPosX = [], objPosY = [];
                     var pageScroll = $(pageContainer).children().first();
                     console.log(pageScroll);
                     scrollAnchors = $(pageScroll).find(".scranchor").toArray();
-                    console.log(scrollAnchors);
                     var pageTopAnchor = document.getElementById('page-' + pageNr + '-top');
                     console.log(pageTopAnchor);
+                    scrollAnchors.sort(function(x,y){ return x == pageTopAnchor ? -1 : y == pageTopAnchor ? 1 : 0; });
+                    console.log(scrollAnchors);
                     (pageScroll[0]).prepend(pageTopAnchor);
                     //checking if anchor is inside a group, if yes take it away
                     for(let y=0; y<scrollAnchors.length;y++){
