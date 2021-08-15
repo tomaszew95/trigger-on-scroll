@@ -40,6 +40,7 @@ var objPosX = [], objPosY = [];
                             let secondParent = firstParent.parent();
                             let anchorParentTopPos = 0;
                             if(pageScroll[0] != scrollAnchors[y].parentNode){
+                                console.log('works');
                                 var parentsFunction = () =>{
                                     let topPos = parseFloat(firstParent.get(0).style.top);
                                     anchorParentTopPos += topPos;
