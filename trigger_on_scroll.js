@@ -19,6 +19,9 @@ var objPosX = [], objPosY = [];
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
+                    var page = experience.getCurrentPage();
+                    console.log(page);
+
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
                     //making new array of scrollObjects that are on current page 
                     currentPageScrollObjects = scrollObjects.filter(($object) =>{
