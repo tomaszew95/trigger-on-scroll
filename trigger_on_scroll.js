@@ -19,8 +19,8 @@ var objPosX = [], objPosY = [];
 
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
-                    var page = experience.getCurrentPage();
-                    console.log(page);
+                    var pageNr = experience.getCurrentPage().getPageNumber();
+                    console.log(pageNr);
 
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
                     //making new array of scrollObjects that are on current page 
@@ -37,7 +37,9 @@ var objPosX = [], objPosY = [];
                     var pageScroll = $(pageContainer).children().first();
                     console.log(pageScroll);
                     scrollAnchors = $(pageScroll).find(".scranchor").toArray();
-                    (pageScroll).prepend(scrollAnchors[0]);
+                    var pageTopAnchor = document.getElementById('page-' + pageNr + '-top');
+                    console.log(pageTopAnchor);
+                    (pageScroll).prepend(pageTopAnchor);
                     //checking if anchor is inside a group, if yes take it away
                     for(let y=0; y<scrollAnchors.length;y++){
                         let firstParent = $(scrollAnchors[y]).parent();
