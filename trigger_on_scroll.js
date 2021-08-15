@@ -32,7 +32,9 @@ var objPosX = [], objPosY = [];
                     definingDefaultObjectPosition();
 
                     var pageScroll = $(pageContainer).children().first();
+                    console.log(pageScroll);
                     scrollAnchors = $(pageScroll).find(".scranchor").toArray();
+                    $(scrollAnchors[0]).insertAfter(pageScroll);
                     //checking if anchor is inside a group, if yes take it away
                     for(let y=0; y<scrollAnchors.length;y++){
                         let firstParent = $(scrollAnchors[y]).parent();
