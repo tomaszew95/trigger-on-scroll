@@ -20,9 +20,8 @@ var objPosX = [], objPosY = [];
                 experience.on(CerosSDK.EVENTS.PAGE_CHANGED, pageChangedCallback);
                 function pageChangedCallback(){
                     var pageNr = experience.getCurrentPage().getPageNumber();
-                    console.log(pageNr);
-
                     var pageContainer = document.querySelector(".page-viewport.top > .page-container");
+
                     //making new array of scrollObjects that are on current page 
                     currentPageScrollObjects = scrollObjects.filter(($object) =>{
                         let $obj = document.getElementById($object.id);
@@ -35,13 +34,11 @@ var objPosX = [], objPosY = [];
                     definingDefaultObjectPosition();
 
                     var pageScroll = $(pageContainer).children().first();
-                    console.log(pageScroll);
                     scrollAnchors = $(pageScroll).find(".scranchor").toArray();
                     var pageTopAnchor = document.getElementById('page-' + pageNr + '-top');
-                    console.log(pageTopAnchor);
                     scrollAnchors.sort(function(x,y){ return x == pageTopAnchor ? -1 : y == pageTopAnchor ? 1 : 0; });
-                    console.log(scrollAnchors);
                     (pageScroll[0]).prepend(pageTopAnchor);
+
                     //checking if anchor is inside a group, if yes take it away
                     for(let y=0; y<scrollAnchors.length;y++){
                         let firstParent = $(scrollAnchors[y]).parent();
@@ -62,7 +59,6 @@ var objPosX = [], objPosY = [];
                                 let anchorTopPos = parseFloat(scrollAnchors[y].style.top);
                                 anchorTopPos += anchorParentTopPos;
                                 scrollAnchors[y].style.top = (anchorTopPos + 'px');
-                                console.log(scrollAnchors[y], 'works');
                                 $(scrollAnchors[y]).insertAfter(scrollAnchors[y-1]);
                             }
                         }
